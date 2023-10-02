@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>newtab</title>
+
+  <style>
+    html {
+      align-items: center;
+      background-color: #f7eee4;
+      color: #c5c8c6;
+      display: flex;
+      font: 22px/1 "Inconsolata", monospace;
+      height: 100%;
+      justify-content: center;
+    }
+
+    body {
+      background-color: #1d1f21;
+      border-radius: 2px;
+      box-shadow: 1px 1px 6px #1d1f2187;
+      color: #c5c8c6;
+      display: flex;
+      flex-direction: column;
+      min-height: 30ch;
+      min-width: 50vw;
+      padding: 2em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    p span {
+      color: #b5bd68;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus,
+    a:hover {
+      font-weight: bold;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      column-gap: 2em;
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      padding: 1em 0;
+    }
+
+    ul:nth-child(5n + 1) li:first-child {
+      color: #a54242;
+    }
+
+    ul:nth-child(5n + 2) li:first-child {
+      color: #de935f;
+    }
+    
+    ul:nth-child(5n + 3) li:first-child {
+      color: #f0c674;
+    }
+    
+    ul:nth-child(5n + 4) li:first-child {
+      color: #8c9440;
+    }
+
+    ul:nth-child(5n + 5) li:first-child {
+      color: #85678f;
+    }
+
+    li:first-child {
+      font-weight: bold;
+    }
+
+    li:last-child {
+      margin: 0 0 1em;
+    }
+
+    p #cursor {
+      background-color: #b5bd68;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <p><span>user@home &gt; </span>newtab</p>
+
+  <nav>
+    <ul>
+      <li>skyedge.xyz</li>
+      <li><a href="https://skyedge.xyz/">home</a></li>
+      <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
+    </ul>
+
+    <ul>
+      <li>search</li>
+      <li><a href="https://google.com/">google</a></li>
+      <li><a href="https://ya.ru/">yandex</a></li>
+    </ul>
+
+    <ul>
+      <li>chill</li>
+      <li><a href="https://yt.be/">youtube</a></li>
+      <li><a href="https://twitch.tv/">twitch</a></li>
+    </ul>
+
+    <ul>
+      <li>tools</li>
+      <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
+      <li><a href="yandex.ru/pogoda/">weather</a></li>
+      <li><a href="yandex.ru/maps/">map</a></li>
+    </ul>
+
+    <ul>
+      <li>utab</li>
+      <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
+    </ul>
+  </nav>
+
+  <p><span>user@home &gt; </span> <span id="cursor">_</span></p>
+</body>
+</html>
