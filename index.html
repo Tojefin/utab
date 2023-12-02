@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>newtab</title>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) }
+      m[i].l = 1 * new Date()
+      for (var j = 0;j < document.scripts.length;j++) { if (document.scripts[j].src === r) { return } }
+      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym")
+
+    ym(95753183, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+  <noscript>
+    <div><img src="https://mc.yandex.ru/watch/95753183" style="position:absolute; left:-9999px;" alt="" /></div>
+  </noscript>
+  <!-- /Yandex.Metrika counter -->
 
   <style>
     html {
@@ -12,6 +35,7 @@
       font: 22px/1 "Inconsolata", monospace;
       height: 100%;
       justify-content: center;
+      overflow: hidden;
     }
 
     body {
@@ -21,17 +45,21 @@
       color: #c5c8c6;
       display: flex;
       flex-direction: column;
-      min-height: 30ch;
-      min-width: 50vw;
+      width: 55vw;
+      aspect-ratio: 19/9;
       padding: 2em;
     }
 
-    p {
+    div {
       margin: 0;
+      display: flex;
+      max-height: 22px;
     }
 
-    p span {
+    div p {
       color: #b5bd68;
+      min-width: fit-content;
+      margin: 0;
     }
 
     a {
@@ -64,11 +92,11 @@
     ul:nth-child(5n + 2) li:first-child {
       color: #de935f;
     }
-    
+
     ul:nth-child(5n + 3) li:first-child {
       color: #f0c674;
     }
-    
+
     ul:nth-child(5n + 4) li:first-child {
       color: #8c9440;
     }
@@ -85,53 +113,251 @@
       margin: 0 0 1em;
     }
 
-    p .cursor {
+    .cursor {
       background-color: #b5bd68;
-      animation: blink 2s infinite;
+      animation: blink 1s infinite;
+      color: #b5bd68;
+      opacity: 0;
+      position: absolute;
+    }
+
+    .input_container {
+      width: 100%;
+    }
+
+    input {
+      background: none;
+      outline: none;
+      border: none;
+      padding: 0;
+      font: 22px/1 "Inconsolata", monospace;
+      color: #c5c8c6;
+      caret-color: transparent;
+      width: 100%;
+      height: auto;
+      box-sizing: border-box;
+      resize: none;
+      overflow-y: visible;
+    }
+
+    .cliLoader:after {
+      animation: cliLoader 1s ease infinite;
+      display: block;
+      content: "|";
+    }
+
+    @keyframes cliLoader {
+
+      25% {
+        content: "|";
+      }
+
+      50% {
+        content: "/";
+      }
+
+      75% {
+        content: "——";
+      }
+
+      100% {
+        content: "\\";
+      }
     }
 
     @keyframes blink {
-      0%, 49% { opacity: 0; }
-      50% { opacity: 1; }
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
   </style>
 </head>
+
 <body>
-  <p><span>user@home &gt; </span>newtab</p>
+  <div>
+    <p>user@home &gt; </p><span id="usedCommand">/newtab</span>
+  </div>
 
-  <nav>
-    <ul>
-      <li>skyedge.xyz</li>
-      <li><a href="https://skyedge.xyz/">home</a></li>
-      <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
-    </ul>
+  <section id="output">
+    <nav>
+      <ul>
+        <li>skyedge.xyz</li>
+        <li><a href="https://skyedge.xyz/">home</a></li>
+        <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
+      </ul>
 
-    <ul>
-      <li>search</li>
-      <li><a href="https://google.com/">google</a></li>
-      <li><a href="https://ya.ru/">yandex</a></li>
-    </ul>
+      <ul>
+        <li>search</li>
+        <li><a href="https://google.com/">google</a></li>
+        <li><a href="https://ya.ru/">yandex</a></li>
+      </ul>
 
-    <ul>
-      <li>chill</li>
-      <li><a href="https://yt.be/">youtube</a></li>
-      <li><a href="https://twitch.tv/">twitch</a></li>
-    </ul>
+      <ul>
+        <li>chill</li>
+        <li><a href="https://yt.be/">youtube</a></li>
+        <li><a href="https://twitch.tv/">twitch</a></li>
+      </ul>
 
-    <ul>
-      <li>tools</li>
-      <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
-      <li><a href="https://yandex.ru/pogoda/">weather</a></li>
-      <li><a href="https://yandex.ru/maps/">map</a></li>
-      <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
-    </ul>
+      <ul>
+        <li>tools</li>
+        <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
+        <li><a href="https://yandex.ru/pogoda/">weather</a></li>
+        <li><a href="https://yandex.ru/maps/">map</a></li>
+        <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
+      </ul>
 
-    <ul>
-      <li>utab</li>
-      <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
-    </ul>
-  </nav>
+      <ul>
+        <li>utab</li>
+        <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
+      </ul>
+    </nav>
+  </section>
 
-  <p><span>user@home &gt; </span> <span class="cursor">_</span></p>
+  <div>
+    <p>user@home &gt; </p>
+    <div class="input_container">
+      <input type="text" placeholder="/help" onblur="blurHandler()" onclick="resize(this)" oninput="resize(this)"
+        onkeyup="resize(this)" onkeydown="resize(this)" />
+      <span id="cursor" class="cursor">|</span>
+    </div>
+  </div>
+  <script>
+    window.onload = () => {
+      inputFocus()
+      document.querySelector('body').addEventListener('click', (e) => {
+        if (e.target == document.querySelector('body') || e.target == document.querySelector('input')) {
+          inputFocus()
+        }
+      })
+      const input = document.querySelector('input')
+      input.addEventListener('keydown', (e) => {
+        if (e.keyCode == 13) { submit(input) }
+      })
+      input.addEventListener('keydown', (e) => {
+        if (e.keyCode == 38) { input.value = document.querySelector('#usedCommand').textContent }
+      })
+      resize(input)
+    }
+    function blurHandler() {
+      document.querySelector('#cursor').style.display = 'none'
+    }
+    function inputFocus() {
+      let input = document.querySelector('input')
+      input.focus()
+      document.querySelector('#cursor').style.display = 'block'
+    }
+    function resize(input) {
+      const cursor = document.querySelector('#cursor')
+      cursor.classList.remove("cursor")
+      cursor.offsetHeight
+      cursor.classList.add("cursor")
+      cursor.style.transform = `translateX(${input.selectionStart * 12.1 - input.scrollLeft}px)`
+    }
+    let useAI = false
+    let messages = []
+    async function submit(input) {
+      const value = input.value
+      input.value = ''
+
+      const command = value.split(' ')
+      if (value.split(' ')[0].includes('/')) {
+        document.querySelector('#usedCommand').textContent = command[0]
+        if (command[0] == '/help') {
+          document.querySelector('#output').innerHTML = `
+            <p>/help - Help page</p>
+            <p>/newtab - Table with links</p>
+            <p>[text] - Google search</p>
+            <p>/ai - Chat with AI</p>
+          `
+        }
+
+        if (command[0] == '/test') {
+          document.querySelector('#output').innerHTML = `<span class="cliLoader"></span>`
+        }
+
+        if (command[0] == '/ai') {
+          document.querySelector('#usedCommand').textContent = command[0]
+          useAI = !useAI
+          if (useAI) {
+            messages = []
+            document.querySelector('#output').innerHTML = `
+            <p>Напишите свой запрос для ИИ</p>
+            <p>/ai - чтобы выключить</p>
+          `
+          } else {
+            document.querySelector('#output').innerHTML = `
+            <p>Напишите свой запрос для Google</p>
+            <p>/ai - чтобы включить ИИ</p>
+            <p>/newtab - Таблица с ссылками</p>
+          `
+          }
+        }
+
+        if (command[0] == '/newtab') {
+          document.querySelector('#output').innerHTML = `
+          <nav>
+            <ul>
+              <li>skyedge.xyz</li>
+              <li><a href="https://skyedge.xyz/">home</a></li>
+              <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
+            </ul>
+
+            <ul>
+              <li>search</li>
+              <li><a href="https://google.com/">google</a></li>
+              <li><a href="https://ya.ru/">yandex</a></li>
+            </ul>
+
+            <ul>
+              <li>chill</li>
+              <li><a href="https://yt.be/">youtube</a></li>
+              <li><a href="https://twitch.tv/">twitch</a></li>
+            </ul>
+
+            <ul>
+              <li>tools</li>
+              <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
+              <li><a href="https://yandex.ru/pogoda/">weather</a></li>
+              <li><a href="https://yandex.ru/maps/">map</a></li>
+              <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
+            </ul>
+
+            <ul>
+              <li>utab</li>
+              <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
+            </ul>
+          </nav>
+          `
+        }
+      } else {
+        if (useAI) {
+          document.querySelector('#usedCommand').textContent = value
+          document.querySelector('#output').innerHTML = `<span class="cliLoader"></span>`
+          messages.push({ role: "user", content: value })
+          const res = await fetch('https://g4f.tojefin.repl.co/chat', {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({ messages })
+          })
+          const data = await res.json()
+          messages.push({ role: "assistant", content: data.response })
+          document.querySelector('#output').innerHTML = `
+            ${data.response}
+          `
+        } else {
+          window.open(`https://google.com/search?q=${value}`, "_self")
+        }
+      }
+    }
+  </script>
 </body>
+
 </html>
