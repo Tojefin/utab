@@ -2,6 +2,6 @@
 # utab
 Страница для замены новой вкладки
 
-Плагин для замены: [скачать](https://chrome.google.com/webstore/detail/custom-new-tab/lfjnnkckddkopjfgmbcpdiolnmfobflj)
+Плагин для замены: [скачать](https://chromewebstore.google.com/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia)
 
 ![screen](https://i.imgur.com/iNQNy44.png)
