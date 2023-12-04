@@ -355,9 +355,9 @@
           })
           const data = await res.json()
           messages.push({ role: "assistant", content: data.response })
-          document.querySelector('#output').innerHTML = `
-            ${data.response}
-          `
+          document.querySelector('#output').innerHTML = ``
+          document.querySelector('#output').textContent = `${data.response}`
+          
         } else {
           window.open(`https://google.com/search?q=${value}`, "_self")
         }
