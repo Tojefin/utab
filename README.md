@@ -1,8 +1,22 @@
 
 # utab
 Страница для замены новой вкладки
+  -  Ссылки
+  -  Перенаправняет поиск в гугл
+  -  Возможность общения с ChatGPT
 
-Расширения chrome для замены новой вкладки: [New Tab URL](https://chromewebstore.google.com/detail/new-tab-url/fjmejipbaegkajpfkghaapfhdempldpd), [Мой форк NewTab Redirect](https://github.com/Tojefin/NewTabRedirect)
+Расширения chrome для замены новой вкладки: 
+
+[Custom New Tab](https://chromewebstore.google.com/detail/custom-new-tab/lfjnnkckddkopjfgmbcpdiolnmfobflj)
+ - замена адреса
+ - переключение авто фокуса на адресной строке
+ - не ломает работу сайта
+
+[NewTab Redirect (ручная установка)](https://github.com/Tojefin/NewTabRedirect) 
+ - замена адреса
+ - переключение авто фокуса на адресной строке
+ - не ломает работу сайта
+ - замена фона во время загрузки
 
 Цвет заднего фона: #242424
 
