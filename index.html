@@ -27,6 +27,10 @@
   <!-- /Yandex.Metrika counter -->
 
   <style>
+    * {
+      position: relative;
+    }
+
     html {
       align-items: center;
       background-color: #242424;
@@ -48,6 +52,7 @@
       width: 55vw;
       aspect-ratio: 19/9;
       padding: 2em;
+      overflow: hidden;
     }
 
     div {
@@ -62,7 +67,12 @@
       overflow: hidden;
     }
 
-    div p {
+    p {
+      min-width: fit-content;
+      margin: 0;
+    }
+
+    .user {
       color: #b5bd68;
       min-width: fit-content;
       margin: 0;
@@ -146,6 +156,18 @@
       overflow-y: visible;
     }
 
+    .suggests {
+      position: absolute;
+      top: 25px;
+      left: 133px;
+      height: fit-content;
+    }
+    .sug {
+      display: block;
+      color: #707070;
+    }
+
+
     .cliLoader:after {
       animation: cliLoader 1s ease infinite;
       display: block;
@@ -187,7 +209,7 @@
 
 <body>
   <div>
-    <p>user@home &gt; </p><span id="usedCommand">/newtab</span>
+    <p class="user">user@home &gt; </p><span id="usedCommand">/newtab</span>
   </div>
 
   <section id="output">
@@ -226,12 +248,15 @@
   </section>
 
   <div>
-    <p>user@home &gt; </p>
+    <p class="user">user@home &gt; </p>
     <div class="input_container">
       <input type="text" placeholder="/help" onblur="blurHandler()" onclick="resize(this)" oninput="resize(this)"
         onkeyup="resize(this)" onkeydown="resize(this)" />
       <span id="cursor" class="cursor">|</span>
     </div>
+    <section class="suggests">
+
+    </section>
   </div>
   <script>
     window.onload = () => {
@@ -242,14 +267,67 @@
         }
       })
       const input = document.querySelector('input')
+
+      let timeout = null
+      let selectSug = -1
+      let suggests = []
+      const sugContainer = document.querySelector('.suggests')
+
+      input.addEventListener('keyup', function (e) {
+        if (e.keyCode == 38 || e.keyCode == 40) {return}
+        clearTimeout(timeout)
+        selectSug = -1
+        timeout = setTimeout(() => {
+          console.log('Input Value:', input.value)
+          fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://suggestqueries.google.com/complete/search?client=chrome&q=${input.value}`)}`)
+            .then(response => {
+              if (response.ok) return response.json()
+              throw new Error('Network response was not ok.')
+            })
+            .then(data => {
+              suggests = JSON.parse(data.contents)[1]
+              suggests[-1] = input.value
+              console.log(suggests)
+              sugContainer.innerText = ''
+              suggests.forEach(element => {
+                const sug = document.createElement("a")
+                sug.classList = 'sug'
+                sug.href = `https://google.com/search?q=${element}`
+                sug.textContent = `${element}`
+                sugContainer.appendChild(sug)
+              })
+            })
+        }, 300)
+      })
+
       input.addEventListener('keydown', (e) => {
         if (e.keyCode == 13) { submit(input) }
       })
       input.addEventListener('keydown', (e) => {
-        if (e.keyCode == 38) { input.value = document.querySelector('#usedCommand').textContent }
+        if (e.keyCode == 38) { 
+          if (suggests.length > 0 && selectSug > -1 ) {
+            selectSug--
+            input.value = suggests[selectSug]
+            console.log(selectSug)
+          } else {
+            input.value = document.querySelector('#usedCommand').textContent 
+          }
+        }
+      })
+      input.addEventListener('keydown', (e) => {
+        if (e.keyCode == 40) { 
+          if (suggests.length > 0 && selectSug+1 < suggests.length) {
+            selectSug++
+            input.value = suggests[selectSug]
+            console.log(selectSug)
+          }
+        }
       })
       resize(input)
     }
+
+
+
     function blurHandler() {
       document.querySelector('#cursor').style.display = 'none'
     }
@@ -265,6 +343,7 @@
       cursor.classList.add("cursor")
       cursor.style.transform = `translateX(${input.selectionStart * 12.1 - input.scrollLeft}px)`
     }
+
     let useAI = false
     let messages = []
     async function submit(input) {
