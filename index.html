@@ -286,7 +286,7 @@
               throw new Error('Network response was not ok.')
             })
             .then(data => {
-              suggests = JSON.parse(data)[1]
+              suggests = data[1]
               suggests[-1] = input.value
               console.log(suggests)
               sugContainer.innerText = ''
