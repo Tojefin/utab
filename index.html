@@ -280,7 +280,7 @@
         selectSug = -1
         timeout = setTimeout(() => {
           console.log('Input Value:', input.value)
-          fetch(`https://cors557.deno.dev/ip/http://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURI(input.value)}`)
+          fetch(`https://cors557.deno.dev/ip/http://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(input.value)}`)
             .then(response => {
               if (response.ok) return response.json()
               throw new Error('Network response was not ok.')
