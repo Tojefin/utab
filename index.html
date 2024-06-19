@@ -3,29 +3,6 @@
 
 <head>
   <title>newtab</title>
-
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function (m, e, t, r, i, k, a) {
-      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) }
-      m[i].l = 1 * new Date()
-      for (var j = 0;j < document.scripts.length;j++) { if (document.scripts[j].src === r) { return } }
-      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-    })
-      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym")
-
-    ym(95753183, "init", {
-      clickmap: true,
-      trackLinks: true,
-      accurateTrackBounce: true,
-      webvisor: true
-    });
-  </script>
-  <noscript>
-    <div><img src="https://mc.yandex.ru/watch/95753183" style="position:absolute; left:-9999px;" alt="" /></div>
-  </noscript>
-  <!-- /Yandex.Metrika counter -->
-
   <style>
     * {
       position: relative;
@@ -61,7 +38,7 @@
       max-height: 22px;
     }
 
-    #usedCommand {
+    .usedCommand {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -162,6 +139,7 @@
       left: 133px;
       height: fit-content;
     }
+
     .sug {
       display: block;
       color: #707070;
@@ -209,7 +187,7 @@
 
 <body>
   <div>
-    <p class="user">user@home &gt; </p><span id="usedCommand">/newtab</span>
+    <p class="user">user@home &gt; </p><span class="usedCommand" id="usedCommand">/newtab</span>
   </div>
 
   <section id="output">
@@ -223,7 +201,7 @@
       <ul>
         <li>search</li>
         <li><a href="https://google.com/">google</a></li>
-        <li><a href="https://ya.ru/">yandex</a></li> 
+        <li><a href="https://ya.ru/">yandex</a></li>
         <li><a href="https://www.bing.com/">bing</a></li>
       </ul>
 
@@ -267,15 +245,15 @@
           inputFocus()
         }
       })
-      const input = document.querySelector('input')
 
+      // SUGGESTS
+      const input = document.querySelector('input')
       let timeout = null
       let selectSug = -1
       let suggests = []
       const sugContainer = document.querySelector('.suggests')
-
       input.addEventListener('keyup', function (e) {
-        if (e.keyCode == 38 || e.keyCode == 40) {return}
+        if (e.keyCode == 38 || e.keyCode == 40) { return }
         clearTimeout(timeout)
         selectSug = -1
         timeout = setTimeout(() => {
@@ -300,24 +278,23 @@
             })
         }, 300)
       })
-
       input.addEventListener('keydown', (e) => {
         if (e.keyCode == 13) { submit(input) }
       })
       input.addEventListener('keydown', (e) => {
-        if (e.keyCode == 38) { 
-          if (suggests.length > 0 && selectSug > -1 ) {
+        if (e.keyCode == 38) {
+          if (suggests.length > 0 && selectSug > -1) {
             selectSug--
             input.value = suggests[selectSug]
             console.log(selectSug)
           } else {
-            input.value = document.querySelector('#usedCommand').textContent 
+            input.value = document.querySelector('#usedCommand').textContent
           }
         }
       })
       input.addEventListener('keydown', (e) => {
-        if (e.keyCode == 40) { 
-          if (suggests.length > 0 && selectSug+1 < suggests.length) {
+        if (e.keyCode == 40) {
+          if (suggests.length > 0 && selectSug + 1 < suggests.length) {
             selectSug++
             input.value = suggests[selectSug]
             console.log(selectSug)
@@ -327,8 +304,7 @@
       resize(input)
     }
 
-
-
+    // INPUT CURSOR
     function blurHandler() {
       document.querySelector('#cursor').style.display = 'none'
     }
@@ -345,6 +321,7 @@
       cursor.style.transform = `translateX(${input.selectionStart * 12.1 - input.scrollLeft}px)`
     }
 
+    // COMMANDS
     let useAI = false
     let messages = []
     async function submit(input) {
@@ -437,7 +414,7 @@
           messages.push({ role: "assistant", content: data.response })
           document.querySelector('#output').innerHTML = ``
           document.querySelector('#output').textContent = `${data.response}`
-          
+
         } else {
           window.open(`https://google.com/search?q=${value}`, "_self")
         }
