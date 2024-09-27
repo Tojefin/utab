@@ -57,6 +57,8 @@
 
     a {
       color: inherit;
+      display: flex;
+      align-items: center;
       text-decoration: none;
     }
 
@@ -209,13 +211,15 @@
         <li>chill</li>
         <li><a href="https://yt.be/">youtube</a></li>
         <li><a href="https://twitch.tv/">twitch</a></li>
+        <li><a href="https://ru.pinterest.com/">pinterest</a></li>
       </ul>
 
       <ul>
         <li>tools</li>
         <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
-        <li><a href="https://yandex.ru/pogoda/">weather</a></li>
-        <li><a href="https://yandex.ru/maps/">map</a></li>
+        <li><a id="weather" href="https://yandex.ru/pogoda/">weather</a></li>
+        <li><a href="https://yandex.ru/maps/">ya.map</a></li>
+        <li><a href="https://www.google.com/maps">g.map</a></li>
         <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
       </ul>
 
@@ -238,7 +242,7 @@
     </section>
   </div>
   <script>
-    window.onload = () => {
+    window.onload = async () => {
       inputFocus()
       document.querySelector('body').addEventListener('click', (e) => {
         if (e.target == document.querySelector('body') || e.target == document.querySelector('input')) {
@@ -302,6 +306,44 @@
         }
       })
       resize(input)
+      await getWeather()
+    }
+
+    async function getWeather() {
+      let data = await fetch('https://api.open-meteo.com/v1/forecast?latitude=53.2001&longitude=50.15&current=apparent_temperature,weather_code')
+      let weather = await data.json()
+      const codes = {
+        0: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/clear-day.svg"/>',
+        1: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day.svg"/>',
+        2: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/cloudy.svg"/>',
+        3: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/overcast.svg"/>',
+        45: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/mist.svg"/>',
+        48: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/haze.svg"/>',
+        51: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/fog-day.svg"/>',
+        53: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/fog.svg"/>',
+        55: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/fog.svg"/>',
+        56: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day-sleet.svg"/>',
+        57: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/sleet.svg"/>',
+        61: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day-drizzle.svg"/>',
+        63: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/drizzle.svg"/>',
+        65: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/rain.svg"/>',
+        66: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day-sleet.svg"/>',
+        67: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/sleet.svg"/>',
+        71: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day-snow.svg"/>',
+        73: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/snow.svg"/>',
+        75: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/extreme-snow.svg"/>',
+        77: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/hail.svg"/>',
+        80: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day-drizzle.svg"/>',
+        81: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/drizzle.svg"/>',
+        82: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/rain.svg"/>',
+        85: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/partly-cloudy-day-snow.svg"/>',
+        86: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/snow.svg"/>',
+        95: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/thunderstorms.svg"/>',
+        96: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/thunderstorms-day-rain.svg"/>',
+        99: '<img height="24px" src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/design/fill-static/final/thunderstorms-rain.svg"/>',
+      }
+      let code = codes[weather.current.weather_code]
+      document.querySelector('#weather').innerHTML = `${code} ${weather.current.apparent_temperature}°C`
     }
 
     // INPUT CURSOR
@@ -322,8 +364,6 @@
     }
 
     // COMMANDS
-    let useAI = false
-    let messages = []
     async function submit(input) {
       const value = input.value
       input.value = ''
@@ -364,38 +404,41 @@
 
         if (command[0] == '/newtab') {
           document.querySelector('#output').innerHTML = `
-          <nav>
-            <ul>
-              <li>skyedge.xyz</li>
-              <li><a href="https://skyedge.xyz/">home</a></li>
-              <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
-            </ul>
+            <nav>
+              <ul>
+                <li>skyedge.xyz</li>
+                <li><a href="https://skyedge.xyz/">home</a></li>
+                <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
+              </ul>
 
-            <ul>
-              <li>search</li>
-              <li><a href="https://google.com/">google</a></li>
-              <li><a href="https://ya.ru/">yandex</a></li>
-            </ul>
+              <ul>
+                <li>search</li>
+                <li><a href="https://google.com/">google</a></li>
+                <li><a href="https://ya.ru/">yandex</a></li>
+                <li><a href="https://www.bing.com/">bing</a></li>
+              </ul>
 
-            <ul>
-              <li>chill</li>
-              <li><a href="https://yt.be/">youtube</a></li>
-              <li><a href="https://twitch.tv/">twitch</a></li>
-            </ul>
+              <ul>
+                <li>chill</li>
+                <li><a href="https://yt.be/">youtube</a></li>
+                <li><a href="https://twitch.tv/">twitch</a></li>
+                <li><a href="https://ru.pinterest.com/">pinterest</a></li>
+              </ul>
 
-            <ul>
-              <li>tools</li>
-              <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
-              <li><a href="https://yandex.ru/pogoda/">weather</a></li>
-              <li><a href="https://yandex.ru/maps/">map</a></li>
-              <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
-            </ul>
+              <ul>
+                <li>tools</li>
+                <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
+                <li><a id="weather" href="https://yandex.ru/pogoda/">weather</a></li>
+                <li><a href="https://yandex.ru/maps/">ya.map</a></li>
+                <li><a href="https://www.google.com/maps">g.map</a></li>
+                <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
+              </ul>
 
-            <ul>
-              <li>utab</li>
-              <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
-            </ul>
-          </nav>
+              <ul>
+                <li>utab</li>
+                <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
+              </ul>
+            </nav>
           `
         }
       } else {
@@ -416,7 +459,11 @@
           document.querySelector('#output').textContent = `${data.response}`
 
         } else {
-          window.open(`https://google.com/search?q=${value}`, "_self")
+          if (value.includes('://')) {
+            window.open(`${value}`, "_self")
+          } else {
+            window.open(`https://google.com/search?q=${value}`, "_self")
+          }
         }
       }
     }
