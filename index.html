@@ -363,6 +363,9 @@
       cursor.style.transform = `translateX(${input.selectionStart * 12.1 - input.scrollLeft}px)`
     }
 
+
+    let useAI = false
+    let messages = []
     // COMMANDS
     async function submit(input) {
       const value = input.value
