@@ -56,6 +56,11 @@
       overflow: hidden;
     }
 
+    time {
+      margin-left: auto;
+      transition: opacity 0.3s ease-in-out;
+    }
+
     p {
       min-width: fit-content;
       margin: 0;
@@ -175,6 +180,10 @@
       content: "|";
     }
 
+    .fading {
+      opacity: 0;
+    }
+
     @keyframes cliLoader {
 
       25% {
@@ -228,7 +237,7 @@
   <main>
     <section class="terminal">
       <header>
-        <p class="user">user@home &gt; </p><span class="usedCommand" id="usedCommand">/newtab</span>
+        <p class="user">user@home &gt; </p><span class="usedCommand" id="usedCommand">/newtab</span> <time>00:00</time>
       </header>
 
       <section id="output">
@@ -350,7 +359,33 @@
         }
       })
       inputResize(INPUT)
+      сlock()
       await getWeather()
+    }
+
+    function сlock() {
+      const timeContainer = document.querySelector('time');
+
+      function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+
+        timeContainer.classList.add('fading');
+        setTimeout(() => {
+          timeContainer.textContent = `${hours}:${minutes}`;
+          timeContainer.classList.remove('fading');
+        }, 300);
+      }
+
+      updateClock();
+      const now = new Date();
+      const msToNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+      setTimeout(() => {
+        updateClock();
+        setInterval(updateClock, 60_000);
+      }, msToNextMinute);
     }
 
     async function getWeather() {
