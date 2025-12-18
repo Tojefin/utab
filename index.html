@@ -12,7 +12,6 @@
       align-items: center;
       background-color: #242424;
       color: #c5c8c6;
-      display: flex;
       font: 22px/1 "Inconsolata", monospace;
       height: 100%;
       justify-content: center;
@@ -20,6 +19,25 @@
     }
 
     body {
+      height: 100%;
+    }
+
+    main {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      height: 100%;
+      flex-wrap: wrap;
+    }
+
+    header,
+    footer {
+      margin: 0;
+      display: flex;
+      max-height: 22px;
+    }
+
+    .terminal {
       background-color: #1d1f21;
       border-radius: 2px;
       box-shadow: 1px 1px 6px #1d1f2187;
@@ -30,12 +48,6 @@
       aspect-ratio: 19/9;
       padding: 2em;
       overflow: hidden;
-    }
-
-    div {
-      margin: 0;
-      display: flex;
-      max-height: 22px;
     }
 
     .usedCommand {
@@ -118,6 +130,9 @@
 
     .input_container {
       width: 100%;
+      margin: 0;
+      display: flex;
+      max-height: 22px;
     }
 
     input {
@@ -206,71 +221,77 @@
       }
     }
   </style>
+  <link href="/snow-flakes/snow.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <div>
-    <p class="user">user@home &gt; </p><span class="usedCommand" id="usedCommand">/newtab</span>
-  </div>
+  <main>
+    <section class="terminal">
+      <header>
+        <p class="user">user@home &gt; </p><span class="usedCommand" id="usedCommand">/newtab</span>
+      </header>
 
-  <section id="output">
-    <nav>
-      <ul>
-        <li>skyedge.xyz</li>
-        <li><a href="https://skyedge.xyz/">home</a></li>
-        <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
-        <li><a href="https://github.com/Tojefin/">github</a></li>
-      </ul>
+      <section id="output">
+        <nav>
+          <ul>
+            <li>skyedge.xyz</li>
+            <li><a href="https://skyedge.xyz/">home</a></li>
+            <li><a href="https://kinofree.skyedge.xyz/">kinofree</a></li>
+            <li><a href="https://github.com/Tojefin/">github</a></li>
+          </ul>
 
-      <ul>
-        <li>search</li>
-        <li><a href="https://google.com/">google</a></li>
-        <li><a href="https://ya.ru/">yandex</a></li>
-        <li><a href="https://www.bing.com/">bing</a></li>
-      </ul>
+          <ul>
+            <li>search</li>
+            <li><a href="https://google.com/">google</a></li>
+            <li><a href="https://ya.ru/">yandex</a></li>
+            <li><a href="https://www.bing.com/">bing</a></li>
+          </ul>
 
-      <ul>
-        <li>chill</li>
-        <li><a href="https://www.youtube.com/">youtube</a></li>
-        <li><a href="https://twitch.tv/">twitch</a></li>
-        <li><a href="https://ru.pinterest.com/">pinterest</a></li>
-      </ul>
+          <ul>
+            <li>chill</li>
+            <li><a href="https://www.youtube.com/">youtube</a></li>
+            <li><a href="https://twitch.tv/">twitch</a></li>
+            <li><a href="https://ru.pinterest.com/">pinterest</a></li>
+          </ul>
 
-      <ul>
-        <li>tools</li>
-        <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
-        <li><a id="weather" href="https://yandex.ru/pogoda/">weather</a></li>
-        <li><a href="https://yandex.ru/maps/">ya.map</a></li>
-        <li><a href="https://www.google.com/maps">g.map</a></li>
-        <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
-      </ul>
+          <ul>
+            <li>tools</li>
+            <li><a href="https://www.google.com/search?q=color+picker">colors</a></li>
+            <li><a id="weather" href="https://yandex.ru/pogoda/">weather</a></li>
+            <li><a href="https://yandex.ru/maps/">ya.map</a></li>
+            <li><a href="https://www.google.com/maps">g.map</a></li>
+            <li><a href="https://docs.google.com/document/u/0/">docs</a></li>
+          </ul>
 
-      <ul>
-        <li>notes</li>
-        <li><a href="https://www.notion.so/">notion</a></li>
-        <li><a href="https://chatgpt.com/c/">chatgpt</a></li>
-        <li><a href="https://chat.qwen.ai">qwen</a></li>
-        <li><a href="https://excalidraw.com/">excalidraw</a></li>
-      </ul>
+          <ul>
+            <li>notes</li>
+            <li><a href="https://www.notion.so/">notion</a></li>
+            <li><a href="https://chatgpt.com/c/">chatgpt</a></li>
+            <li><a href="https://chat.qwen.ai">qwen</a></li>
+            <li><a href="https://excalidraw.com/">excalidraw</a></li>
+          </ul>
 
-      <ul>
-        <li>utab</li>
-        <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
-      </ul>
-    </nav>
-  </section>
+          <ul>
+            <li>utab</li>
+            <li><a href="https://github.com/Tojefin/utab">edit it</a></li>
+          </ul>
+        </nav>
+      </section>
 
-  <div>
-    <p class="user">user@home &gt; </p>
-    <div class="input_container">
-      <input type="text" placeholder="/help" onblur="blurHandler()" onclick="inputResize()" oninput="inputResize()"
-        onkeyup="inputResize()" onkeydown="inputResize()" />
-      <span id="cursor" class="cursor">|</span>
-    </div>
-    <section class="suggests">
+      <footer>
+        <p class="user">user@home &gt; </p>
+        <div class="input_container">
+          <input type="text" placeholder="/help" onblur="blurHandler()" onclick="inputResize()" oninput="inputResize()"
+            onkeyup="inputResize()" onkeydown="inputResize()" />
+          <span id="cursor" class="cursor">|</span>
+        </div>
+        <section class="suggests">
 
+        </section>
+        </foot>
     </section>
-  </div>
+  </main>
+
   <script>
     const INPUT = document.querySelector('input')
     const TEPMLATE_NEWTAB = document.querySelector('#output').innerHTML
@@ -481,6 +502,12 @@
         }
       }
     }
+  </script>
+  <script src="/snow-flakes/snow.js"></script>
+  <script>
+    new Snow({
+      showSnowBalls: false
+    })
   </script>
 </body>
 
