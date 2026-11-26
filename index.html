@@ -231,6 +231,7 @@
     }
   </style>
   <link href="./snow-flakes/snow.min.css" rel="stylesheet">
+  <script src="./snow-flakes/snow.js"></script>
 </head>
 
 <body>
@@ -467,6 +468,13 @@
 
       const icon = codes[current.weather_code] || '<span>❓</span>';
       const temp = current.apparent_temperature.toFixed(1);
+
+      if (temp <= 0) {
+        new Snow({
+          showSnowBalls: false
+        })
+      }
+
       document.querySelector('#weather').innerHTML = `${icon} ${temp}°C`;
     }
 
@@ -538,12 +546,6 @@
       }
     }
   </script>
-  <!-- <script src="./snow-flakes/snow.js"></script>
-  <script>
-    new Snow({
-      showSnowBalls: false
-    })
-  </script> -->
 </body>
 
 </html>
